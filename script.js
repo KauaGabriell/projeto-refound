@@ -1,23 +1,25 @@
+const form = document.querySelector("form");
 const amount = document.getElementById("amount");
+const expense = document.getElementById("expense");
+const category = document.getElementById("category");
 
 //Captura o evento de input do campo de valor da despesa para formatar o valor para o padrão brasileiro
 amount.oninput = () => {
-    //Remove todos os caracteres não numéricos
-    let value = (amount.value = amount.value.replace(/[^\d]/g, ""));
-
-    //Transforma o Valor em Centavos
-    value = Number(value) / 100
-
-    //Atualiza o Valor do Input
-    amount.value = formatCurrencyBRL(value);
+  let value = (amount.value = amount.value.replace(/[^\d]/g, "")); //Remove todos os caracteres não numéricos
+  value = Number(value) / 100; //Transforma o Valor em Centavos
+  amount.value = formatCurrencyBRL(value); //Atualiza o Valor do Input
 };
 
 function formatCurrencyBRL(value) {
+  value = value.toLocaleString("pt-BR", {
     //Formata o valor para Real Brasileiro
-    value = value.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-    });
+    style: "currency",
+    currency: "BRL",
+  });
 
-    return value; //Retorna o valor para a variável value para ser utilizado la em cima no evento
+  return value; //Retorna o valor para a variável value para ser utilizado la em cima no evento
+}
+
+form.onsubmit = (event) => {
+    event.preventDefault();
 }
