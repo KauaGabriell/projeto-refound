@@ -35,6 +35,7 @@ form.onsubmit = (event) => {
     };
     
     expenseAdd(newExpense);
+    formClear();
 };
 
 // Adiciona nova despesa na lista
@@ -133,3 +134,13 @@ expenseList.addEventListener("click", function (event){
   //Atualiza os totais
   updateTotal()
 })
+
+//Limpar campos
+
+function formClear(){
+  expense.value = "";
+  category.value = "";
+  amount.value = "";
+
+  expense.focus();
+}
