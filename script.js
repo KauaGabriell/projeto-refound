@@ -123,6 +123,13 @@ function updateTotal() {
 //Evento para remover despesa
 expenseList.addEventListener("click", function (event){
   if(event.target.classList.contains("remove-icon")){
-    console.log(event)
+    //Obtém LI PAI do elemento clicado
+    const item = event.target.closest(".expense");
+
+    //Remove o item da lista
+    item.remove()
   }
+
+  //Atualiza os totais
+  updateTotal()
 })
