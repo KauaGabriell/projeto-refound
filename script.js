@@ -2,7 +2,8 @@ const form = document.querySelector("form");
 const amount = document.getElementById("amount");
 const expense = document.getElementById("expense");
 const category = document.getElementById("category");
-const expenseList = document.querySelector("ul")
+const expenseList = document.querySelector("ul");
+const expenseQuantity = document.querySelector("aside header p span")
 
 //Captura o evento de input do campo de valor da despesa para formatar o valor para o padrão brasileiro
 amount.oninput = () => {
@@ -36,6 +37,7 @@ form.onsubmit = (event) => {
 
 };
 
+//Adiciona uma nova despesa na lista
 function expenseAdd(newExpense) {
   try {
     //Criando elemento de li para adicionar o item a lista
@@ -75,8 +77,23 @@ function expenseAdd(newExpense) {
     expenseInfo.append(expenseName, expenseCategory)
     expenseList.appendChild(expenseItem)
 
+    //Atualiza o total de despesas
+    updateTotal();
+
   } catch (error) {
     alert("Não foi possível adicionar uma despesa, tente novamente em alguns momentos!!")
+    console.log(error)
+  }
+}
+
+function updateTotal(){
+  try {
+    const items = expenseList.children
+
+    expenseQuantity.textContent = `${items.length} ${items.length > 1 ? "Despesas" : "Despesa"} `
+
+  } catch (error) {
+    alert("Não foi possível atualizar o total")
     console.log(error)
   }
 }
