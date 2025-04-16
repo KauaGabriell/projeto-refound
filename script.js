@@ -33,9 +33,10 @@ form.onsubmit = (event) => {
     created_at: new Date(),
   };
   expenseAdd(newExpense);
+
 };
 
-function expenseAdd(newExpense){
+function expenseAdd(newExpense) {
   try {
     //Criando elemento de li para adicionar o item a lista
     const expenseItem = document.createElement("li");
@@ -57,23 +58,15 @@ function expenseAdd(newExpense){
     //Criando Categoria da Despesa
     const expenseCategory = document.createElement("span");
     expenseCategory.textContent = newExpense.category_name
-    
+
     //Criando valor da depesa
     const expenseAmount = document.createElement("span");
-    expenseAmount.classList.add("expense-amount")
-    
-    //Criando Small para R$
-    const expenseSmall = document.createElement("small");
-    expenseSmall.textContent = "R$";
-    
+    expenseAmount.classList.add("expense-amount");
+    expenseAmount.innerHTML = `<small>R$</small>${newExpense.amount.replace("R$", "").toUpperCase()}`
+
     //Adiciona as informações no item
-    expenseItem.appendChild(expenseIcon)
-    expenseItem.appendChild(expenseInfo)
-    expenseAmount.appendChild(expenseSmall)
-    expenseAmount.textContent = newExpense.amount
-    expenseItem.appendChild(expenseAmount)
-    expenseInfo.appendChild(expenseName)
-    expenseInfo.appendChild(expenseCategory)
+    expenseItem.append(expenseIcon, expenseInfo, expenseAmount)
+    expenseInfo.append(expenseName, expenseCategory)
     expenseList.appendChild(expenseItem)
 
   } catch (error) {
