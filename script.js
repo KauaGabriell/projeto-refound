@@ -64,8 +64,14 @@ function expenseAdd(newExpense) {
     expenseAmount.classList.add("expense-amount");
     expenseAmount.innerHTML = `<small>R$</small>${newExpense.amount.replace("R$", "").toUpperCase()}`
 
+    //Criando ícone de Remover
+    const expenseRemoveIcon = document.createElement("img")
+    expenseRemoveIcon.setAttribute("src", `img/remove.svg`);
+    expenseRemoveIcon.setAttribute("alt", "remover");
+    expenseRemoveIcon.classList.add("remove-icon");
+
     //Adiciona as informações no item
-    expenseItem.append(expenseIcon, expenseInfo, expenseAmount)
+    expenseItem.append(expenseIcon, expenseInfo, expenseAmount, expenseRemoveIcon)
     expenseInfo.append(expenseName, expenseCategory)
     expenseList.appendChild(expenseItem)
 
