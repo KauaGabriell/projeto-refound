@@ -120,3 +120,9 @@ function updateTotal() {
     }
 }
 
+//Evento para remover despesa
+expenseList.addEventListener("click", function (event){
+  if(event.target.classList.contains("remove-icon")){
+    console.log(event)
+  }
+})
