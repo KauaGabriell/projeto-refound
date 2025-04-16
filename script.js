@@ -4,6 +4,7 @@ const expense = document.getElementById("expense");
 const category = document.getElementById("category");
 const expenseList = document.querySelector("ul");
 const expenseQuantity = document.querySelector("aside header p span")
+const expenseTotal = document.querySelector("aside header h2")
 
 //Captura o evento de input do campo de valor da despesa para formatar o valor para o padrão brasileiro
 amount.oninput = () => {
@@ -89,8 +90,14 @@ function expenseAdd(newExpense) {
 function updateTotal(){
   try {
     const items = expenseList.children
-
+    //Atualiza o Valor da lista
     expenseQuantity.textContent = `${items.length} ${items.length > 1 ? "Despesas" : "Despesa"} `
+
+    //Percorre todos os itens para somar o valor total
+    let total = 0 
+    for(i = 0; i < expenseList.length; i++){
+      
+    }
 
   } catch (error) {
     alert("Não foi possível atualizar o total")
