@@ -8,34 +8,31 @@ const expenseTotal = document.querySelector("aside header h2")
 
 //Captura o evento de input do campo de valor da despesa para formatar o valor para o padrão brasileiro
 amount.oninput = () => {
-  let value = (amount.value = amount.value.replace(/[^\d]/g, "")); //Remove todos os caracteres não numéricos
-  value = Number(value) / 100; //Transforma o Valor em Centavos
-  amount.value = formatCurrencyBRL(value); //Atualiza o Valor do Input
+  let value = amount.value.replace(/[^\d]/g, ""); // Remove caracteres não numéricos
+  value = Number(value) / 100; // Converte para centavos
+  amount.value = formatCurrencyBRL(value);
 };
 
 function formatCurrencyBRL(value) {
-  value = value.toLocaleString("pt-BR", {
-    //Formata o valor para Real Brasileiro
+  return value.toLocaleString("pt-BR", {
     style: "currency",
-    currency: "BRL",
+    currency: "BRL"
   });
-
-  return value; //Retorna o valor para a variável value para ser utilizado la em cima no evento
 }
 
 form.onsubmit = (event) => {
   event.preventDefault();
-  //Criando Objeto de despesa
+  
   const newExpense = {
     id: new Date().getTime(),
     expense: expense.value,
     category_id: category.value,
     category_name: category.options[category.selectedIndex].text,
     amount: amount.value,
-    created_at: new Date(),
+    created_at: new Date()
   };
+  
   expenseAdd(newExpense);
-
 };
 
 //Adiciona uma nova despesa na lista
@@ -95,9 +92,27 @@ function updateTotal(){
 
     //Percorre todos os itens para somar o valor total
     let total = 0 
-    for(i = 0; i < expenseList.length; i++){
-      
+    for(let item = 0; item < items.length; item++){
+      const itemAmount = items[item].querySelector(".expense-amount")
+
+      //Remove caracteres não numéricos e substitui virgula por ponto
+      let value = itemAmount.textContent.replace(/[^\d]/g, "").replace(",", ".");
+
+      //Converte Valor para float
+      value = parseFloat(value)
+
+      //Verifica se é numero
+      if(isNaN(value)){
+        alert("Não foi possível calcular o total, o valor não parece ser um número")
+        return;
+      }
+
+      //Incrementa Valor total
+      total += Number(value);
     }
+
+    // Atualiza o total na interface
+    expenseTotal.textContent = formatCurrencyBRL(total);
 
   } catch (error) {
     alert("Não foi possível atualizar o total")
